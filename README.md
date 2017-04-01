@@ -6,6 +6,7 @@ This repo contains instructions and a command line tool to help achieve consiste
 
 - clone this repository
 - run `java -jar clangFormatWrapper.jar --init <project dir(s)>` (where `<project dir(s)>` is one or multiple project directories to which to add the config files)
+- if Git shows any of the added files as "untracked", add them to the `.gitignore`
 
 ## IDE Setup
 
