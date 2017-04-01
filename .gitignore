@@ -2,5 +2,7 @@
 **/.idea/workspace.xml
 **/.idea/misc.xml
 **/.idea/watcherTasks.xml
+**/.idea/uiDesigner.xml
 out
 build
+clangFormatWrapper/.clang-format
