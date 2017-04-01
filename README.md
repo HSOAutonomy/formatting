@@ -16,10 +16,24 @@ These instructions assume that the earlier, general setup has already been done.
 
 (these instructions should work for all IDEA-based IDEs, including CLion / PyCharm)
 
-- install the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin: `File|Settings|Plugins|Browse Repositories...`, then search for "File Watchers" and install it
-- after restarting, making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should trigger a reformat:
+- install the [File Watchers plugin](https://plugins.jetbrains.com/plugin/7177-file-watchers): `File|Settings|Plugins|Browse Repositories...`, then search for "File Watchers" and install it
+- after restarting IDEA, making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should trigger a reformat:
 
   ![](images/idea.gif)
+
+### Visual Studio Code
+
+- install the [Clang-Format extension](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) (`View|Extensions`, search for "clang-format")
+- enable format-on-save by adding this to `settings.json` (`File|Preferences|Settings`):
+
+  ```json
+  "editor.formatOnSave": true
+  ```
+
+- also set the `"clang-format.executable"` path (on Windows, escape `\` with `\\`!), or make sure `clang-format` is in your `PATH`
+- after restarting VSCode, making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should trigger a reformat:
+
+  ![](images/vscode.gif)
 
 ## Known issues
 
