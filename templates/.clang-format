@@ -8,3 +8,4 @@ SpacesInContainerLiterals: false
 BreakAfterJavaFieldAnnotations: true
 AllowShortFunctionsOnASingleLine: false
 KeepEmptyLinesAtTheStartOfBlocks: false
+AlignAfterOpenBracket: DontAlign
