@@ -20,3 +20,22 @@ These instructions assume that the earlier, general setup has already been done.
 - after restarting, making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should trigger a reformat:
 
   ![](images/idea.gif)
+
+## Known issues
+
+clang-format primarily being a C++ formatter, it has issues with some Java constructs. It sometimes puts a space before `::` of Java 8 method references:
+
+```java
+this ::foo
+String[] ::new
+```
+
+It also doesn't appear to have an option to add a line break before the `{` in interface declarations, so they will always be formatted like this:
+
+```java
+public interface Foo {
+    void bar();
+}
+```
+
+Overall it works very well, however.
