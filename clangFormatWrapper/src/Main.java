@@ -5,7 +5,9 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,21 +41,27 @@ public class Main
 			System.exit(1);
 		}
 
+		List<File> files = new ArrayList<>();
 		for (String file : args) {
-			walkFiles(file, this ::format);
+			walkFiles(file, files::add);
 		}
+		files.parallelStream().forEach(this ::format);
 	}
 
-	private void format(File file) throws URISyntaxException, IOException
+	private void format(File file)
 	{
-		String executable = getJarLocation() + "/binaries/windows/clang-format.exe";
-		String style = String.format("-style={%s}", String.join(", ", STYLE));
-		String[] command = new String[] {executable, "-i", style};
-		command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
+		try {
+			String executable = getJarLocation() + "/binaries/windows/clang-format.exe";
+			String style = String.format("-style={%s}", String.join(", ", STYLE));
+			String[] command = new String[] {executable, "-i", style};
+			command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
 
-		ProcessBuilder builder = new ProcessBuilder(command);
-		builder.inheritIO();
-		builder.start();
+			ProcessBuilder builder = new ProcessBuilder(command);
+			builder.inheritIO();
+			builder.start();
+		} catch (URISyntaxException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static String getJarLocation() throws URISyntaxException
