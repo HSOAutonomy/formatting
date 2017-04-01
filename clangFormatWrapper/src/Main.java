@@ -22,7 +22,7 @@ public class Main
 	}
 
 	private String jarLocation =
-		new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
+			new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
 
 	private String binaryLocation = jarLocation + "/binaries/windows/clang-format.exe";
 
@@ -70,13 +70,13 @@ public class Main
 			File file = new File(filePath);
 			if (file.isDirectory()) {
 				FileUtil.copyFile(new File(jarLocation + "/templates/.clang-format"),
-					new File(file.getAbsolutePath() + "/.clang-format"));
+						new File(file.getAbsolutePath() + "/.clang-format"));
 				String ideaDir = file.getAbsolutePath() + "/.idea";
 				new File(ideaDir).mkdir();
 				String template =
-					String.join("\n", Files.readAllLines(Paths.get(jarLocation + "/templates/watcherTasks.xml")));
+						String.join("\n", Files.readAllLines(Paths.get(jarLocation + "/templates/watcherTasks.xml")));
 				FileUtil.createFile(
-					ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", binaryLocation));
+						ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", binaryLocation));
 			}
 		}
 	}

@@ -7,6 +7,11 @@ import java.nio.file.Paths;
 
 class FileUtil
 {
+	private static boolean hasEnding(File file, String ending)
+	{
+		return file.getName().toLowerCase().endsWith(ending);
+	}
+
 	static void walk(String path, FileVisitor fileVisitor) throws IOException, URISyntaxException
 	{
 		File file = new File(path).getCanonicalFile();
@@ -16,9 +21,8 @@ class FileUtil
 		}
 
 		if (!file.isDirectory()) {
-			String name = file.getName();
-			if (name.endsWith(".java") || name.endsWith(".c") || name.endsWith(".h") || name.endsWith(".cpp") ||
-				name.endsWith(".hpp")) {
+			if (hasEnding(file, ".java") || hasEnding(file, ".c") || hasEnding(file, ".h") || hasEnding(file, ".cpp") ||
+					hasEnding(file, ".hpp")) {
 				fileVisitor.visit(file);
 				return;
 			}
