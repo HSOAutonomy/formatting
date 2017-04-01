@@ -54,6 +54,9 @@ class FileUtil
 
 	static void copyFile(File from, File to) throws IOException
 	{
+		if (to.exists()) {
+			Files.delete(to.toPath());
+		}
 		Files.copy(from.toPath(), to.toPath());
 	}
 }
