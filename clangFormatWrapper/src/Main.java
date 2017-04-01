@@ -24,8 +24,10 @@ public class Main
 												  "ColumnLimit: 120",
 												  "BreakBeforeBraces: Linux",
 												  "SpaceAfterCStyleCast: true",
+												  "SpacesInContainerLiterals: false",
 												  "BreakAfterJavaFieldAnnotations: true",
-												  "AllowShortFunctionsOnASingleLine: false"};
+												  "AllowShortFunctionsOnASingleLine: false",
+												  "KeepEmptyLinesAtTheStartOfBlocks: false"};
 
 	private Main(String[] args) throws IOException, URISyntaxException
 	{
