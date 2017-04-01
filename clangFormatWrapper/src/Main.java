@@ -1,15 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -43,7 +36,7 @@ public class Main
 
 		List<File> files = new ArrayList<>();
 		for (String file : args) {
-			walkFiles(file, files::add);
+			FileWalker.walk(file, files::add);
 		}
 		files.parallelStream().forEach(this ::format);
 	}
@@ -67,36 +60,5 @@ public class Main
 	private static String getJarLocation() throws URISyntaxException
 	{
 		return new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
-	}
-
-	private void walkFiles(String path, FileVisitor fileVisitor) throws IOException, URISyntaxException
-	{
-		File file = new File(path);
-
-		if (file.getParentFile().getName().equals(".git")) {
-			return;
-		}
-
-		if (!file.isDirectory()) {
-			String name = file.getName();
-			if (name.endsWith(".java") || name.endsWith(".c") || name.endsWith(".h") || name.endsWith(".cpp") ||
-				name.endsWith(".hpp")) {
-				fileVisitor.visit(file);
-				return;
-			}
-		}
-
-		File[] list = file.listFiles();
-		if (list == null)
-			return;
-
-		for (File f : list) {
-			walkFiles(f.getAbsolutePath(), fileVisitor);
-		}
-	}
-
-	@FunctionalInterface
-	interface FileVisitor {
-		void visit(File file) throws IOException, URISyntaxException;
 	}
 }
