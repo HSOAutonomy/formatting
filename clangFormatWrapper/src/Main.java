@@ -19,17 +19,6 @@ public class Main
 		new Main(new ArrayList<>(Arrays.asList(args)));
 	}
 
-	private static String[] STYLE = new String[] {"IndentWidth: 4",
-												  "TabWidth: 4",
-												  "UseTab: Always",
-												  "ColumnLimit: 120",
-												  "BreakBeforeBraces: Linux",
-												  "SpaceAfterCStyleCast: true",
-												  "SpacesInContainerLiterals: false",
-												  "BreakAfterJavaFieldAnnotations: true",
-												  "AllowShortFunctionsOnASingleLine: false",
-												  "KeepEmptyLinesAtTheStartOfBlocks: false"};
-
 	private Main(List<String> args) throws IOException, URISyntaxException
 	{
 		if (args.isEmpty()) {
@@ -58,8 +47,7 @@ public class Main
 	{
 		try {
 			String executable = getJarLocation() + "/binaries/windows/clang-format.exe";
-			String style = String.format("-style={%s}", String.join(", ", STYLE));
-			String[] command = new String[] {executable, "-i", style};
+			String[] command = new String[] {executable, "-i"};
 			command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
 
 			ProcessBuilder builder = new ProcessBuilder(command);
@@ -70,12 +58,13 @@ public class Main
 		}
 	}
 
-	private void initDirectories(List<String> filePaths)
+	private void initDirectories(List<String> filePaths) throws URISyntaxException, IOException
 	{
 		for (String filePath : filePaths) {
 			File file = new File(filePath);
 			if (file.isDirectory()) {
-				FileUtil.createFile(file.getAbsolutePath() + "/.clang-format", String.join("\n", STYLE));
+				FileUtil.copyFile(new File(getJarLocation() + "/templates/.clang-format"),
+								  new File(file.getAbsolutePath() + "/.clang-format"));
 			}
 		}
 	}
