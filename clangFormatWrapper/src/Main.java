@@ -28,6 +28,7 @@ public class Main
 												  "UseTab: Always",
 												  "ColumnLimit: 120",
 												  "BreakBeforeBraces: Linux",
+												  "SpaceAfterCStyleCast: true",
 												  "BreakAfterJavaFieldAnnotations: true",
 												  "AllowShortFunctionsOnASingleLine: false"};
 
