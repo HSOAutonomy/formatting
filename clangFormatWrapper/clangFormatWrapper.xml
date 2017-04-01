@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="clangFormatWrapper">
+    <property name="buildDir" value="build"/>
+
+    <target name="build">
+        <delete dir="${buildDir}"/>
+        
+        <mkdir dir="${buildDir}"/>
+        <javac destdir="${buildDir}" includeantruntime="false" debug="true">
+            <src path="src"/>
+        </javac>
+
+        <jar destfile="../clangFormatWrapper.jar" basedir="${buildDir}">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
