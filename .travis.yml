@@ -1,0 +1,10 @@
+language: java
+
+os:
+  - linux
+  - osx
+
+script:
+  - ant -f clangFormatWrapper/clangFormatWrapper.xml build
+  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose --init
+  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose
