@@ -39,6 +39,7 @@ These instructions assume that the earlier, general setup has already been done.
 
 ## Eclipse
 
+- Deactivate the built-in format-on-save if enabled (`Window|Preferences|Java|Editor|Save Actions`, uncheck "Format source code").
 - Make sure that `clang-format` is in your `PATH` (see [/binaries](/binaries)) (a reboot may be required for Eclipse to pick up the changes). On Linux, add the following to your `~/.profile` file:
 
   ```bash
