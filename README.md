@@ -37,7 +37,14 @@ These instructions assume that the earlier, general setup has already been done.
 
 ## Eclipse
 
-- Make sure that `clang-format` is in your `PATH` (see [/binaries](/binaries)) (a reboot may be required for Eclipse to pick up the changes).
+- Make sure that `clang-format` is in your `PATH` (see [/binaries](/binaries)) (a reboot may be required for Eclipse to pick up the changes). On Linux, add the following to your `~/.profile` file:
+
+  ```bash
+  export PATH=$PATH:<path-to-formatting-repo>/binaries/linux64/clang-format
+  ```
+
+  Replace `<path-to-formatting-repo>` with the directory you cloned this repository to.
+
 - Enable "Build Automatically" in `Window|Preferences|General|Workspace` (otherwise formatting only happens when running the project, not on save).
 - Making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should now trigger a reformat:
 
