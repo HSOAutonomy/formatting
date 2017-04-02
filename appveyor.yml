@@ -1,8 +1,6 @@
 install:
   - cinst ant
-
-before_build:
-  - set PATH=%PATH%;"C:\Program Files\Java\jdk1.8.0"
+  - refreshenv
 
 build_script:
   - ant -f clangFormatWrapper/clangFormatWrapper.xml build
