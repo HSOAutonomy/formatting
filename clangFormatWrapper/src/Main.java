@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,11 +71,36 @@ public class Main
 						new File(file.getAbsolutePath() + "/.clang-format"));
 				String ideaDir = file.getAbsolutePath() + "/.idea";
 				new File(ideaDir).mkdir();
-				String template =
-						String.join("\n", Files.readAllLines(Paths.get(jarLocation + "/templates/watcherTasks.xml")));
+				String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
 				FileUtil.createFile(
 						ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", binaryLocation));
+
+				initEclipseProject(file);
 			}
 		}
+	}
+
+	private void initEclipseProject(File file) throws IOException
+	{
+		File projectFile = new File(new File(file.getAbsolutePath()) + "/.project");
+		if (!projectFile.exists()) {
+			return;
+		}
+
+		String externalToolBuildersDir = file.getAbsolutePath() + "/.externalToolBuilders";
+		new File(externalToolBuildersDir).mkdir();
+
+		FileUtil.copyFile(new File(jarLocation + "/templates/clang-format.launch"),
+				new File(externalToolBuildersDir + "/clang-format.launch"));
+
+		String template = FileUtil.readFile(jarLocation + "/templates/buildCommand.xml");
+		String project = FileUtil.readFile(projectFile.getAbsolutePath());
+		if (project.contains("clang-format.launch")) {
+			return;
+		}
+
+		// this is a terrible hack...
+		FileUtil.createFile(
+				projectFile.getAbsolutePath(), project.replace("</buildSpec>", template + "\n\t</buildSpec>"));
 	}
 }

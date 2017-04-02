@@ -3,6 +3,7 @@
 **/.idea/misc.xml
 **/.idea/watcherTasks.xml
 **/.idea/uiDesigner.xml
+**/.idea/inspectionProfiles
 out
 build
 clangFormatWrapper/.clang-format

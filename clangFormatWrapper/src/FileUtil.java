@@ -42,6 +42,11 @@ class FileUtil
 		void visit(File file) throws IOException, URISyntaxException;
 	}
 
+	static String readFile(String file) throws IOException
+	{
+		return String.join("\n", Files.readAllLines(Paths.get(file)));
+	}
+
 	private static void writeFile(String file, String content, OpenOption... option)
 	{
 		try {
