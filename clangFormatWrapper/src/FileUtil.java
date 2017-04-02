@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class FileUtil
@@ -61,11 +62,13 @@ class FileUtil
 		writeFile(file, content);
 	}
 
-	static void copyFile(File from, File to) throws IOException
+	static void copyFile(String from, String to) throws IOException
 	{
-		if (to.exists()) {
-			Files.delete(to.toPath());
+		Path fromPath = Paths.get(from);
+		Path toPath = Paths.get(to);
+		if (Files.exists(toPath)) {
+			Files.delete(toPath);
 		}
-		Files.copy(from.toPath(), to.toPath());
+		Files.copy(fromPath, toPath);
 	}
 }

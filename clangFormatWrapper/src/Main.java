@@ -89,16 +89,19 @@ public class Main
 		for (String filePath : filePaths) {
 			File file = new File(filePath);
 			if (file.isDirectory()) {
-				FileUtil.copyFile(new File(jarLocation + "/templates/.clang-format"),
-						new File(file.getAbsolutePath() + "/.clang-format"));
-				String ideaDir = file.getAbsolutePath() + "/.idea";
-				new File(ideaDir).mkdir();
-				String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
-				FileUtil.createFile(ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", executable));
-
+				FileUtil.copyFile(jarLocation + "/templates/.clang-format", file.getAbsolutePath() + "/.clang-format");
+				initIdeaProject(file);
 				initEclipseProject(file);
 			}
 		}
+	}
+
+	private void initIdeaProject(File file) throws IOException
+	{
+		String ideaDir = file.getAbsolutePath() + "/.idea";
+		new File(ideaDir).mkdir();
+		String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
+		FileUtil.createFile(ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", executable));
 	}
 
 	private void initEclipseProject(File file) throws IOException
@@ -111,8 +114,8 @@ public class Main
 		String externalToolBuildersDir = file.getAbsolutePath() + "/.externalToolBuilders";
 		new File(externalToolBuildersDir).mkdir();
 
-		FileUtil.copyFile(new File(jarLocation + "/templates/clang-format.launch"),
-				new File(externalToolBuildersDir + "/clang-format.launch"));
+		FileUtil.copyFile(
+				jarLocation + "/templates/clang-format.launch", externalToolBuildersDir + "/clang-format.launch");
 
 		String template = FileUtil.readFile(jarLocation + "/templates/buildCommand.xml");
 		String project = FileUtil.readFile(projectFile.getAbsolutePath());
