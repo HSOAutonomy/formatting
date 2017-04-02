@@ -21,6 +21,14 @@ These instructions assume that the earlier, general setup has already been done.
 
   ![](images/idea.gif)
 
+## Eclipse
+
+- make sure that `clang-format` is in your `PATH` (see [/binaries](/binaries)) (a reboot may be required for Eclipse to pick up the changes)
+- enable "Build Automatically" in `Window|Preferences|General|Workspace` (otherwise formatting only happens when running the project, not on save)
+- making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should now trigger a reformat:
+
+  ![](images/eclipse.gif)
+
 ### Visual Studio Code
 
 - install the [Clang-Format extension](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) (`View|Extensions`, search for "clang-format")
