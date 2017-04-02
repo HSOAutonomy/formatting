@@ -58,19 +58,21 @@ These instructions assume that the earlier, general setup has already been done.
 
 ## Known issues
 
-clang-format primarily being a C++ formatter, it has issues with some Java constructs. It sometimes puts a space before `::` of Java 8 method references:
+- On Windows, clang-format may create `TMP` files next to source files sometimes (such as `WorldModel.java~RF3494d0.TMP`). This is why `*.TMP` should be added to `.gitignore` as instructed earlier. More info [here](https://bugs.llvm.org//show_bug.cgi?id=26286).
 
-```java
-this ::foo
-String[] ::new
-```
+- clang-format primarily being a C++ formatter, it has issues with some Java constructs. It sometimes puts a space before `::` of Java 8 method references:
 
-It also doesn't appear to have an option to add a line break before the `{` in interface declarations, so they will always be formatted like this:
+  ```java
+  this ::foo
+  String[] ::new
+  ```
 
-```java
-public interface Foo {
-    void bar();
-}
-```
+- clang-format also doesn't appear to have an option to add a line break before the `{` in interface declarations, so they will always be formatted like this:
+
+  ```java
+  public interface Foo {
+      void bar();
+  }
+  ```
 
 Overall it works very well, however.
