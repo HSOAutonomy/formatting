@@ -23,6 +23,7 @@ public class Main
 	private String executable;
 
 	private boolean verbose = false;
+	private boolean success = true;
 
 	private Main(List<String> args) throws IOException, URISyntaxException
 	{
@@ -41,6 +42,8 @@ public class Main
 		} else {
 			formatFiles(args);
 		}
+
+		System.exit(success ? 0 : 1);
 	}
 
 	private void lookupPaths() throws URISyntaxException
@@ -81,6 +84,7 @@ public class Main
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			success = false;
 		}
 	}
 
