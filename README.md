@@ -15,6 +15,7 @@ In case the repository has not been set up for formatting yet:
   .idea
   .clang-format
   *.TMP
+  *.java-*
   ```
 
   If an Eclipse `.project` file is committed, the changes to it, as well as `.externalToolBuilders/clang-format.launch`, should be committed as well.

@@ -19,10 +19,10 @@ public class Main
 		new Main(new ArrayList<>(Arrays.asList(args)));
 	}
 
-	private String jarLocation =
-			new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
+	private String jarLocation;
+	private String executable;
 
-	private String binaryLocation = jarLocation + "/binaries/windows/clang-format.exe";
+	private boolean verbose = false;
 
 	private Main(List<String> args) throws IOException, URISyntaxException
 	{
@@ -31,11 +31,29 @@ public class Main
 			System.exit(1);
 		}
 
+		lookupPaths();
+
+		verbose = args.remove("--verbose");
+
 		boolean shouldInit = args.remove("--init");
 		if (shouldInit) {
 			initDirectories(args);
 		} else {
 			formatFiles(args);
+		}
+	}
+
+	private void lookupPaths() throws URISyntaxException
+	{
+		jarLocation =
+				new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
+		executable = jarLocation + "/binaries";
+		if (OSUtil.isWindows()) {
+			executable += "/windows32/clang-format.exe";
+		} else if (OSUtil.isUnix()) {
+			executable += "/linux64/clang-format";
+		} else if (OSUtil.isMac()) {
+			executable += "/mac64/clang-format";
 		}
 	}
 
@@ -51,12 +69,16 @@ public class Main
 	private void format(File file)
 	{
 		try {
-			String[] command = new String[] {binaryLocation, "-i"};
+			String[] command = new String[] {executable, "-i"};
 			command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
 
 			ProcessBuilder builder = new ProcessBuilder(command);
 			builder.inheritIO();
 			builder.start();
+
+			if (verbose) {
+				System.out.println(file.toString());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,8 +94,7 @@ public class Main
 				String ideaDir = file.getAbsolutePath() + "/.idea";
 				new File(ideaDir).mkdir();
 				String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
-				FileUtil.createFile(
-						ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", binaryLocation));
+				FileUtil.createFile(ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", executable));
 
 				initEclipseProject(file);
 			}
