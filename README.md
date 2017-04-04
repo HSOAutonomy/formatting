@@ -22,7 +22,7 @@ In case the repository has not been set up for formatting yet:
 
   If an Eclipse `.project` file is committed, the changes to it, as well as `.externalToolBuilders/clang-format.launch`, should be committed as well.
 
-- Run `java -jar clangFormatWrapper.jar <project dir(s)>` (same as before, but without `--init`) to recursively reformat all source files in the repo.
+- Run `java -jar clangFormatWrapper.jar <project dir(s)>` (same as before, but without `--init`) to recursively reformat all source files in the repo. With `--verbose`, the path of every formatted file is printed.
 
 ## IDE Setup
 
