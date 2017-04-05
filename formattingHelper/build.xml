@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="clangFormatWrapper">
+<project name="formattingHelper">
     <property name="buildDir" value="build"/>
 
     <target name="build">
@@ -10,7 +10,7 @@
             <src path="src"/>
         </javac>
 
-        <jar destfile="../clangFormatWrapper.jar" basedir="${buildDir}">
+        <jar destfile="../formattingHelper.jar" basedir="${buildDir}">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
             </manifest>

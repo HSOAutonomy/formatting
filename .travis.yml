@@ -12,6 +12,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ant; fi
 
 script:
-  - ant -f clangFormatWrapper/clangFormatWrapper.xml build
-  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose --init
-  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose
+  - ant -f formattingHelper/build.xml build
+  - java -jar formattingHelper.jar formattingHelper --verbose --init
+  - java -jar formattingHelper.jar formattingHelper --verbose

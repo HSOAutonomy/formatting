@@ -6,4 +6,4 @@
 **/.idea/inspectionProfiles
 out
 build
-clangFormatWrapper/.clang-format
+formattingHelper/.clang-format

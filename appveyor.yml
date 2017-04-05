@@ -3,8 +3,8 @@ install:
   - refreshenv
 
 build_script:
-  - ant -f clangFormatWrapper/clangFormatWrapper.xml build
+  - ant -f formattingHelper/build.xml build
 
 test_script:
-  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose --init
-  - java -jar clangFormatWrapper.jar clangFormatWrapper --verbose
+  - java -jar formattingHelper.jar formattingHelper --verbose --init
+  - java -jar formattingHelper.jar formattingHelper --verbose
