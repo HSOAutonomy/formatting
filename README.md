@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/HSOAutonomy/formatting.png)](https://travis-ci.org/HSOAutonomy/formatting) [![Build status](https://ci.appveyor.com/api/projects/status/xx70nsj0tl0cm92g?svg=true)](https://ci.appveyor.com/project/HSOAutonomy/formatting)
 
-This repo contains instructions and a command line tool to help achieve consistent formatting for hso-autonomy projects (in an IDE-independent way). For Java/C++ files, [clang-format](https://clang.llvm.org/docs/ClangFormat.html) is used.
+This repo contains instructions and a command line tool to help achieve consistent formatting for hso-autonomy projects (in an IDE-independent way). We use [clang-format](https://clang.llvm.org/docs/ClangFormat.html) for Java and C++, and [yapf](https://github.com/google/yapf) for Python.
 
 ## Setup
 

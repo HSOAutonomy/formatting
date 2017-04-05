@@ -20,7 +20,8 @@ public class Main
 	}
 
 	private String jarLocation;
-	private String executable;
+	private String clangFormatPath;
+	private String yapfPath;
 
 	private boolean verbose = false;
 	private boolean success = true;
@@ -50,14 +51,21 @@ public class Main
 	{
 		jarLocation =
 				new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent();
-		executable = jarLocation + "/binaries";
+		clangFormatPath = getBinaryPath("clang-format");
+		yapfPath = getBinaryPath("yapf");
+	}
+
+	private String getBinaryPath(String name)
+	{
+		String binaryPath = jarLocation + "/binaries";
 		if (OSUtil.isWindows()) {
-			executable += "/windows32/clang-format.exe";
+			binaryPath += "/windows32/" + name + ".exe";
 		} else if (OSUtil.isUnix()) {
-			executable += "/linux64/clang-format";
+			binaryPath += "/linux64/" + name;
 		} else if (OSUtil.isMac()) {
-			executable += "/mac64/clang-format";
+			binaryPath += "/mac64/" + name;
 		}
+		return binaryPath;
 	}
 
 	private void formatFiles(List<String> filePaths) throws IOException, URISyntaxException
@@ -72,7 +80,7 @@ public class Main
 	private void format(File file)
 	{
 		try {
-			String[] command = new String[] {executable, "-i"};
+			String[] command = new String[] {clangFormatPath, "-i"};
 			command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
 
 			ProcessBuilder builder = new ProcessBuilder(command);
@@ -105,7 +113,8 @@ public class Main
 		String ideaDir = file.getAbsolutePath() + "/.idea";
 		new File(ideaDir).mkdir();
 		String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
-		FileUtil.createFile(ideaDir + "/watcherTasks.xml", template.replace("clang-format-binary", executable));
+		FileUtil.createFile(ideaDir + "/watcherTasks.xml",
+				template.replace("clang-format-binary", clangFormatPath).replace("yapf-binary", yapfPath));
 	}
 
 	private void initEclipseProject(File file) throws IOException

@@ -4,6 +4,7 @@
 **/.idea/watcherTasks.xml
 **/.idea/uiDesigner.xml
 **/.idea/inspectionProfiles
+**/.idea/dictionaries
 out
 build
 formattingHelper/.clang-format
