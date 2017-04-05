@@ -5,9 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 class FileUtil
 {
+	private static final String[] EXTENSIONS = new String[] {".java", ".c", ".h", ".cpp", ".hpp"};
+
 	private static boolean hasEnding(File file, String ending)
 	{
 		return file.getName().toLowerCase().endsWith(ending);
@@ -22,16 +25,16 @@ class FileUtil
 		}
 
 		if (!file.isDirectory()) {
-			if (hasEnding(file, ".java") || hasEnding(file, ".c") || hasEnding(file, ".h") || hasEnding(file, ".cpp") ||
-					hasEnding(file, ".hpp")) {
+			if (Arrays.stream(EXTENSIONS).anyMatch(s -> hasEnding(file, s))) {
 				fileVisitor.visit(file);
 				return;
 			}
 		}
 
 		File[] list = file.listFiles();
-		if (list == null)
+		if (list == null) {
 			return;
+		}
 
 		for (File f : list) {
 			walk(f.getAbsolutePath(), fileVisitor);
