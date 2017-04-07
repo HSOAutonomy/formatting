@@ -39,6 +39,10 @@ public class Main
 
 		verbose = args.remove("--verbose");
 
+		if (verbose) {
+			System.out.println("args " + args);
+		}
+
 		boolean shouldInit = args.remove("--init");
 		if (shouldInit) {
 			initDirectories(args);
