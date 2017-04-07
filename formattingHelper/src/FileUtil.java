@@ -9,9 +9,7 @@ import java.util.Arrays;
 
 class FileUtil
 {
-	private static final String[] EXTENSIONS = new String[] {".java", ".c", ".h", ".cpp", ".hpp"};
-
-	private static boolean hasEnding(File file, String ending)
+	static boolean hasEnding(File file, String ending)
 	{
 		return file.getName().toLowerCase().endsWith(ending);
 	}
@@ -25,10 +23,8 @@ class FileUtil
 		}
 
 		if (!file.isDirectory()) {
-			if (Arrays.stream(EXTENSIONS).anyMatch(s -> hasEnding(file, s))) {
-				fileVisitor.visit(file);
-				return;
-			}
+			fileVisitor.visit(file);
+			return;
 		}
 
 		File[] list = file.listFiles();

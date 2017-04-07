@@ -14,6 +14,8 @@ import java.util.stream.Stream;
  */
 public class Main
 {
+	private static final String[] SOURCE_FILE_EXTENSIONS = new String[] {".java", ".c", ".h", ".cpp", ".hpp"};
+
 	public static void main(String[] args) throws IOException, URISyntaxException
 	{
 		new Main(new ArrayList<>(Arrays.asList(args)));
@@ -79,6 +81,10 @@ public class Main
 
 	private void format(File file)
 	{
+		if (!isSourceFile(file)) {
+			return;
+		}
+
 		try {
 			String[] command = new String[] {clangFormatPath, "-i"};
 			command = Stream.concat(Stream.of(command), Stream.of(file.getAbsolutePath())).toArray(String[] ::new);
@@ -94,6 +100,11 @@ public class Main
 			e.printStackTrace();
 			success = false;
 		}
+	}
+
+	private static boolean isSourceFile(File file)
+	{
+		return Arrays.stream(SOURCE_FILE_EXTENSIONS).anyMatch(s -> FileUtil.hasEnding(file, s));
 	}
 
 	private void initDirectories(List<String> filePaths) throws IOException
