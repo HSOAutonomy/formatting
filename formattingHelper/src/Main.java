@@ -118,7 +118,6 @@ public class Main
 			if (file.isDirectory()) {
 				FileUtil.copyFile(jarLocation + "/templates/.clang-format", file.getAbsolutePath() + "/.clang-format");
 				initIdeaProject(file);
-				initEclipseProject(file);
 			}
 		}
 	}
@@ -130,29 +129,5 @@ public class Main
 		String template = FileUtil.readFile(jarLocation + "/templates/watcherTasks.xml");
 		FileUtil.createFile(ideaDir + "/watcherTasks.xml",
 				template.replace("clang-format-binary", clangFormatPath).replace("yapf-binary", yapfPath));
-	}
-
-	private void initEclipseProject(File file) throws IOException
-	{
-		File projectFile = new File(new File(file.getAbsolutePath()) + "/.project");
-		if (!projectFile.exists()) {
-			return;
-		}
-
-		String externalToolBuildersDir = file.getAbsolutePath() + "/.externalToolBuilders";
-		new File(externalToolBuildersDir).mkdir();
-
-		FileUtil.copyFile(
-				jarLocation + "/templates/clang-format.launch", externalToolBuildersDir + "/clang-format.launch");
-
-		String template = FileUtil.readFile(jarLocation + "/templates/buildCommand.xml");
-		String project = FileUtil.readFile(projectFile.getAbsolutePath());
-		if (project.contains("clang-format.launch")) {
-			return;
-		}
-
-		// this is a terrible hack...
-		FileUtil.createFile(
-				projectFile.getAbsolutePath(), project.replace("</buildSpec>", template + "\n\t</buildSpec>"));
 	}
 }
