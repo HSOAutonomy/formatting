@@ -41,6 +41,7 @@ These instructions assume that the earlier, general setup has already been done.
 
 - Deactivate the built-in format-on-save if enabled (`Window|Preferences|Java|Editor|Save Actions`, uncheck "Format source code").
 - Install a modified version of the [CppStyle plugin](https://github.com/wangzw/CppStyle/) by copying [`org.wangzw.cppstyle-1.4.0.6.jar`](org.wangzw.cppstyle-1.4.0.6.jar) to the `dropins` directory of your Eclipse installation.
+- You may need to start Eclipse from the command line using `eclipse -clean` (to clear the plugin cache).
 - Go to `Window|Preferences|CppStyle`. Here, specify the `Clang-format path` (one of the files in [`/binaries`](/binaries), depending on your OS) and enable `Run clang-format on file save`.
 - Making a change to a file and pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> should now trigger a reformat:
 
