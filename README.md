@@ -63,12 +63,4 @@ These instructions assume that the earlier, general setup has already been done.
 
 - On Windows, clang-format may create `TMP` files next to source files sometimes (such as `WorldModel.java~RF3494d0.TMP`). This is why `*.TMP` should be added to `.gitignore` as instructed earlier. More info [here](https://bugs.llvm.org//show_bug.cgi?id=26286).
 
-- clang-format doesn't appear to have an option to add a line break before the `{` in interface declarations, so they will always be formatted like this:
-
-  ```java
-  public interface Foo {
-      void bar();
-  }
-  ```
-
 Overall it works very well, however.
